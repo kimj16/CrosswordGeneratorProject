@@ -7,39 +7,93 @@ import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
-        Crossword cw = new Crossword(15, 15);
+        // Crossword cw = new Crossword(15, 15);
+        Crossword cw = new Crossword(5,5);
+        // Crossword cw = new Crossword(3, 3);
         cw.initPuzzle();
         ArrayList<String> testWords = new ArrayList<String>();
-        testWords.add("cc");
-        testWords.add("fff");
-        testWords.add("dd");
-        testWords.add("a");
-        testWords.add("eee");
-        testWords.add("b");
+        
+        // testWords.add("cc");
+        // testWords.add("fff");
+        // testWords.add("dd");
+        // testWords.add("a");
+        // testWords.add("eee");
+        // testWords.add("b");
+
+        testWords.add("kiwis");
+        testWords.add("milky");
+        testWords.add("inink");
+        testWords.add("kim");
+        testWords.add("minis");
+        testWords.add("iwill");
+        testWords.add("sly");
+        testWords.add("sky");
+        testWords.add("dinky");
+        testWords.add("mid");
+        testWords.add("think");
+        testWords.add("slinky");
+        testWords.add("minty");
+
+        // testWords.add("lie");
+        // testWords.add("old");
+        // testWords.add("key");
+        // testWords.add("oak");
+        // testWords.add("air");
+        // testWords.add("dry");
+        // testWords.add("die");
+        // testWords.add("oar");
+        // testWords.add("oil");
+
+
         // cw.sortWordsByLength(testWords);
         // System.out.println(testWords);
+
+        // cw.placeBlock(0, 4, 2);
+        // cw.placeBlock(0, 9, 2);
+        // cw.placeBlock(1, 4, 2);
+        // cw.placeBlock(1, 9, 2);
+        // cw.placeBlock(2, 4, 2);
+        // cw.placeBlock(2, 9, 2);
+        // cw.placeBlock(3, 0, 2);
+        // cw.placeBlock(3, 1, 2);
+        // cw.placeBlock(4, 3, 2);
+        // cw.placeBlock(4, 7, 2);
+        // cw.placeBlock(4, 8, 2);
+        // cw.placeBlock(6, 5, 2);
+        // cw.placeBlock(6, 6, 2);
+        // cw.placeBlock(7, 4, 2);
+        // cw.placeBlock(8, 0, 2);
+        // cw.placeBlock(8, 1, 2);
+        // cw.placeBlock(8, 2, 2);
+        // cw.placeBlock(8, 3, 2);
+        // cw.placeBlock(9, 0, 2);
+        // cw.placeBlock(9, 1, 2);
+        // cw.placeBlock(10, 0, 2);
+
+        cw.placeBlock(0, 0, 2);
         cw.placeBlock(0, 4, 2);
-        cw.placeBlock(0, 9, 2);
-        cw.placeBlock(1, 4, 2);
-        cw.placeBlock(1, 9, 2);
-        cw.placeBlock(2, 4, 2);
-        cw.placeBlock(2, 9, 2);
-        cw.placeBlock(3, 0, 2);
-        cw.placeBlock(3, 1, 2);
-        cw.placeBlock(4, 3, 2);
-        cw.placeBlock(4, 7, 2);
-        cw.placeBlock(4, 8, 2);
-        cw.placeBlock(6, 5, 2);
-        cw.placeBlock(6, 6, 2);
-        cw.placeBlock(7, 4, 2);
-        cw.placeBlock(8, 0, 2);
-        cw.placeBlock(8, 1, 2);
-        cw.placeBlock(8, 2, 2);
-        cw.placeBlock(8, 3, 2);
-        cw.placeBlock(9, 0, 2);
-        cw.placeBlock(9, 1, 2);
-        cw.placeBlock(10, 0, 2);
-        char[][] puz = cw.getPuzzle();
+
+        // char[][] puz = cw.getPuzzle();
+        // for(int row = 0; row < puz.length; row++) {
+        //     for(int col = 0; col < puz[0].length; col++) {
+        //         System.out.print(puz[row][col]);
+        //         System.out.print(" ");
+        //     }
+        //     System.out.println();
+        // }
+        // System.out.println(cw.getWordSpaces());
+
+        // ArrayList<WordSpace> wordSpaces = cw.getWordSpaces();
+        // for(WordSpace ws : wordSpaces) {
+        //     System.out.println(ws.number() + " : (" + ws.rowIndex() + ", " + ws.colIndex() + ") len: " + ws.length() + " isRow: " + ws.isRow());
+        // }
+
+        // System.out.println();
+
+        // System.out.println(cw.separateWordSpacesByLength());
+        // System.out.println(cw.separateWordsByLength(testWords));
+
+        char[][] puz = cw.fillPuzzle(testWords, cw.getWordSpaces(), cw.getPuzzle());
         for(int row = 0; row < puz.length; row++) {
             for(int col = 0; col < puz[0].length; col++) {
                 System.out.print(puz[row][col]);
@@ -47,10 +101,5 @@ public class App {
             }
             System.out.println();
         }
-        System.out.println(cw.getWordSpaces());
-        System.out.println();
-
-        System.out.println(cw.separateWordSpacesByLength());
-        System.out.println(cw.separateWordsByLength(testWords));
     }
 }
