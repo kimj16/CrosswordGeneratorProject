@@ -4,11 +4,12 @@
 package crosswordgeneratorproject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class App {
     public static void main(String[] args) {
-        // Crossword cw = new Crossword(15, 15);
-        Crossword cw = new Crossword(5,5);
+        Crossword cw = new Crossword(15, 15);
+        // Crossword cw = new Crossword(5,5);
         // Crossword cw = new Crossword(3, 3);
         cw.initPuzzle();
         ArrayList<String> testWords = new ArrayList<String>();
@@ -20,19 +21,100 @@ public class App {
         // testWords.add("eee");
         // testWords.add("b");
 
-        testWords.add("kiwis");
-        testWords.add("milky");
-        testWords.add("inink");
-        testWords.add("kim");
-        testWords.add("minis");
-        testWords.add("iwill");
-        testWords.add("sly");
-        testWords.add("sky");
-        testWords.add("dinky");
-        testWords.add("mid");
-        testWords.add("think");
-        testWords.add("slinky");
-        testWords.add("minty");
+        // testWords.add("kiwis");
+        // testWords.add("milky");
+        // testWords.add("inink");
+        // testWords.add("kim");
+        // testWords.add("minis");
+        // testWords.add("iwill");
+        // testWords.add("sly");
+        // testWords.add("sky");
+        // testWords.add("dinky");
+        // testWords.add("mid");
+        // testWords.add("think");
+        // testWords.add("slinky");
+        // testWords.add("minty");
+
+        testWords.add("adds");
+        testWords.add("each");
+        testWords.add("edged");
+        testWords.add("gere");
+        testWords.add("rule");
+        testWords.add("niece");
+        testWords.add("aloe");
+        testWords.add("grandteton");
+        testWords.add("pandg");
+        testWords.add("assert");
+        testWords.add("eye");
+        testWords.add("owls");
+        testWords.add("masala");
+        testWords.add("sale");
+        testWords.add("iron");
+        testWords.add("lat");
+        testWords.add("chords");
+        testWords.add("cinc");
+        testWords.add("lga");
+        testWords.add("locke");
+        testWords.add("lag");
+        testWords.add("ember");
+        testWords.add("orc");
+        testWords.add("nail");
+        testWords.add("sherri");
+        testWords.add("use");
+        testWords.add("glug");
+        testWords.add("nato");
+        testWords.add("derulo");
+        testWords.add("roll");
+        testWords.add("keg");
+        testWords.add("ponder");
+        testWords.add("leeza");
+        testWords.add("letsbereal");
+        testWords.add("unit");
+        testWords.add("agree");
+        testWords.add("acts");
+        testWords.add("rune");
+        testWords.add("poets");
+        testWords.add("weed");
+        testWords.add("oped");
+        testWords.add("agape");
+        testWords.add("delay");
+        testWords.add("dronesoccer");
+        testWords.add("seed");
+        testWords.add("erg");
+        testWords.add("aural");
+        testWords.add("classicalgreece");
+        testWords.add("hens");
+        testWords.add("entrancehall");
+        testWords.add("diets");
+        testWords.add("get");
+        testWords.add("eco");
+        testWords.add("den");
+        testWords.add("demon");
+        testWords.add("goldenglobes");
+        testWords.add("wes");
+        testWords.add("allbrokenup");
+        testWords.add("lager");
+        testWords.add("atari");
+        testWords.add("ark");
+        testWords.add("rig");
+        testWords.add("cloud");
+        testWords.add("horse");
+        testWords.add("liu");
+        testWords.add("met");
+        testWords.add("alone");
+        testWords.add("snl");
+        testWords.add("upset");
+        testWords.add("draw");
+        testWords.add("euro");
+        testWords.add("lap");
+        testWords.add("ego");
+        testWords.add("tre");
+        testWords.add("lsd");
+        testWords.add("orate");
+        testWords.add("ezine");
+        testWords.add("gated");
+        // testWords.add("crate");
+        
 
         // testWords.add("lie");
         // testWords.add("old");
@@ -44,6 +126,7 @@ public class App {
         // testWords.add("oar");
         // testWords.add("oil");
 
+        Collections.shuffle(testWords);
 
         // cw.sortWordsByLength(testWords);
         // System.out.println(testWords);
@@ -70,8 +153,27 @@ public class App {
         // cw.placeBlock(9, 1, 2);
         // cw.placeBlock(10, 0, 2);
 
-        cw.placeBlock(0, 0, 2);
         cw.placeBlock(0, 4, 2);
+        cw.placeBlock(0, 9, 2);
+        cw.placeBlock(1, 4, 2);
+        cw.placeBlock(1, 9, 2);
+        cw.placeBlock(2, 4, 2);
+        cw.placeBlock(3, 5, 2);
+        cw.placeBlock(3, 12, 2);
+        cw.placeBlock(3, 13, 2);
+        cw.placeBlock(3, 14, 2);
+        cw.placeBlock(4, 3, 2);
+        cw.placeBlock(4, 8, 2);
+        cw.placeBlock(5, 0, 2);
+        cw.placeBlock(5, 1, 2);
+        cw.placeBlock(5, 6, 2);
+        cw.placeBlock(5, 11, 2);
+        cw.placeBlock(6, 6, 2);
+        cw.placeBlock(6, 11, 2);
+        cw.placeBlock(7, 5, 2);
+
+        // cw.placeBlock(0, 0, 2);
+        // cw.placeBlock(0, 4, 2);
 
         // char[][] puz = cw.getPuzzle();
         // for(int row = 0; row < puz.length; row++) {
@@ -93,7 +195,8 @@ public class App {
         // System.out.println(cw.separateWordSpacesByLength());
         // System.out.println(cw.separateWordsByLength(testWords));
 
-        char[][] puz = cw.fillPuzzle(testWords, cw.getWordSpaces(), cw.getPuzzle());
+        char[][] puz = cw.fillPuzzle(testWords, cw.getWordSpaces(), cw.getPuzzle(), null);
+        // char[][] puz = cw.getPuzzle();
         for(int row = 0; row < puz.length; row++) {
             for(int col = 0; col < puz[0].length; col++) {
                 System.out.print(puz[row][col]);
@@ -101,5 +204,7 @@ public class App {
             }
             System.out.println();
         }
+
+        // CrosswordFiller.fillPuzzle();
     }
 }

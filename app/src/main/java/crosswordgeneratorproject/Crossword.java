@@ -7,27 +7,37 @@ public class Crossword {
     private char[][] puzzle;
     private String title;
     private ArrayList<WordSpace> wordSpaces;
+    private boolean isReady;
+    private int totalCombinations;
+    private int triedCombinations;
 
     public Crossword(int width, int height) {
         puzzle = new char[width][height];
         wordSpaces = new ArrayList<WordSpace>();
         getWordSpaces();
+        isReady = false;
+        totalCombinations = 0;
+        triedCombinations = 0;
     }
 
     public char[][] getPuzzle() {
         return this.puzzle;
     }
 
-    public char[][] fillPuzzle(ArrayList<String> words, ArrayList<WordSpace> wordSpaces, char[][] puzzle) {
+    public char[][] fillPuzzleSetup(ArrayList<String> words, ArrayList<WordSpace> wordSpaces, char[][] puzzle) {
+        totalCombinations = words.size();
+        return fillPuzzle(words, wordSpaces, puzzle, null);
+    }
+
+    public char[][] fillPuzzle(ArrayList<String> words, ArrayList<WordSpace> wordSpaces, char[][] puzzle, WordSpace prevSpaceFilled) {
         if(!checkIfEnoughWords(words, wordSpaces)) {
             System.out.println("Not enough words to fill puzzle");
             return puzzle;
         }
         if(wordSpaces.isEmpty()) {
             System.out.println("Out of Spaces");
-            // Build special clear indicator (0x0 puzzle)
-            // char[][] clearPuzzle = new char[0][0];
-            // return clearPuzzle;
+            // Set ready flag
+            isReady = true;
             return puzzle;
         }
 
@@ -41,6 +51,16 @@ public class Crossword {
 
         // Get space to check
         WordSpace currSpace = wordSpaces.get(0);
+        if(prevSpaceFilled == null) {
+            currSpace = wordSpaces.get(0);
+        } else {
+            for(WordSpace ws : wordSpaces) {
+                if(wordSpacesIntersect(ws, prevSpaceFilled)) {
+                    currSpace = ws;
+                    break;
+                }
+            }
+        }
 
         // Get words of same length as space
         ArrayList<String> sameLengthWords = new ArrayList<String>();
@@ -51,11 +71,18 @@ public class Crossword {
         }
 
         for(String word : sameLengthWords) {
-            if(wordValidInSpace(word, currSpace, newPuzzle)) {
-                for(int i = 0; i < wordSpaces.size(); i++) {
-                    System.out.print("\t");
+            triedCombinations++;
+            if(triedCombinations % 10000 == 0) {
+                System.out.println(triedCombinations);
+                for(int row = 0; row < newPuzzle.length; row++) {
+                    for(int col = 0; col < newPuzzle[0].length; col++) {
+                        System.out.print(newPuzzle[row][col]);
+                        System.out.print(" ");
+                    }
+                    System.out.println();
                 }
-                System.out.println("VALID WORD " + word + " FOUND FOR SPACE (" + currSpace.rowIndex() + ", " + currSpace.colIndex() + ")");
+            }
+            if(wordValidInSpace(word, currSpace, newPuzzle)) {
                 if(currSpace.isRow()) {
                     for(int i = 0; i < word.length(); i++) {
                         newPuzzle[currSpace.rowIndex()][currSpace.colIndex() + i] = word.charAt(i);
@@ -74,11 +101,10 @@ public class Crossword {
                 newWordSpaces.addAll(wordSpaces);
                 newWordSpaces.remove(currSpace);
 
-                char[][] nextPuzzle = fillPuzzle(newWords, newWordSpaces, newPuzzle);
-
-                // if(nextPuzzle.length == 0) {
-                //     return newPuzzle;
-                // } 
+                newPuzzle = fillPuzzle(newWords, newWordSpaces, newPuzzle, currSpace);
+                if(isReady) {
+                    return newPuzzle;
+                }
 
                 for(int row = 0; row < newPuzzle.length; row++) {
                     for(int col = 0; col < newPuzzle[0].length; col++) {
@@ -87,7 +113,38 @@ public class Crossword {
                 } 
             } 
         }
+        // System.out.println(isReady);
         return newPuzzle;
+    }
+
+    public boolean wordSpacesIntersect(WordSpace ws1, WordSpace ws2) {
+        if(ws1.isRow() == ws2.isRow()){
+            return false;
+        } else {
+            if(!ws1.isRow() && 
+            (ws1.colIndex() >= ws2.colIndex() &&
+            ws1.colIndex() <= ws2.colIndex() + ws2.length() - 1 &&
+            ws1.colIndex() >= ws2.colIndex() &&
+            ws1.colIndex() <= ws2.colIndex() + ws2.length() - 1) && 
+            (ws2.rowIndex() >= ws1.rowIndex() &&
+            ws2.rowIndex() <= ws1.rowIndex() + ws1.length() - 1 &&
+            ws2.rowIndex() >= ws1.rowIndex() &&
+            ws2.rowIndex() <= ws1.rowIndex() + ws1.length() - 1)) {
+                return true;
+            } else if(ws1.isRow() && 
+            (ws1.rowIndex() >= ws2.rowIndex() &&
+            ws1.rowIndex() <= ws2.rowIndex() + ws2.length() - 1 &&
+            ws1.rowIndex() >= ws2.rowIndex() &&
+            ws1.rowIndex() <= ws2.rowIndex() + ws2.length() - 1) &&
+            (ws2.colIndex() >= ws1.colIndex() &&
+            ws2.colIndex() <= ws1.colIndex() + ws1.length() - 1 &&
+            ws2.colIndex() >= ws1.colIndex() &&
+            ws2.colIndex() <= ws1.colIndex() + ws1.length() - 1)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public boolean wordValidInSpace(String word, WordSpace wordSpace, char[][] puzzle) {
